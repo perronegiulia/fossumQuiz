@@ -2,8 +2,7 @@ const CACHE_NAME = "fossum-quiz-v1";
 const FILES_TO_CACHE = [
   "./index.html",
   "./manifest.json",
-  "./icon-192.png",
-  "./icon-512.png"
+  "/assets/logo.png"
 ];
 
 // Instala o service worker e faz cache inicial
