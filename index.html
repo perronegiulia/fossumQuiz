@@ -1,64 +1,4 @@
 <!DOCTYPE html>
-<!--
-====================================================================
-QUIZ OFFLINE — GUIA RÁPIDO (Leia antes de editar)
-====================================================================
-• Objetivo: app de quiz 100% offline, pensado para iPhone/Android/PC.
-• Modos:
-   1) Por Tema (ordem aleatória ou sequencial)
-   2) Misturado (todos os 7 temas juntos)
-   3) Erradas (só perguntas que você errou alguma vez)
-• Tipos de questão:
-   - "mc" (múltipla escolha): corrige automaticamente pelo índice da alternativa correta
-   - "reveal" (estilo flashcard): mostra a resposta e você marca acerto/erro
-• Persistência: localStorage guarda o conjunto de "erradas" (apaga ao limpar cache do navegador)
-• Importar/Exportar: botões para salvar/ler um JSON com as erradas
-
-====================================================================
-ONDE COLOCAR AS SUAS 350 PERGUNTAS (7 TEMAS × 50 QUESTÕES)
-====================================================================
-A) Mais simples (recomendado p/ iPhone sem servidor local):
-   - Deixe tudo dentro deste arquivo (ver constante QUESTIONS no <script>)
-   - Não depende de "fetch" e funciona direto abrindo o index.html
-
-B) Separar por arquivo JSON (um por tema) — REQUER SERVIDOR LOCAL
-   - Vantagens: organização, manutenção e reuso mais fáceis
-   - Desvantagens: no iPhone, o Safari normalmente não permite "fetch" de arquivos locais (file://). Você vai precisar
-     abrir via um servidor local (ex.: a-Shell + python -m http.server, KSWEB, Simple HTTP Server, etc.)
-   - Esquema do JSON por tema (ex.: ortopedia.json):
-     {
-       "tema": "Ortopedia",
-       "perguntas": [
-         { "type": "mc", "question": "...", "options": ["A","B","C","D"], "answer": 2, "explanation": "opcional" },
-         { "type": "reveal", "question": "...", "answer": "texto da resposta" }
-       ]
-     }
-   - Para carregar: use fetch('dados/ortopedia.json').then(r=>r.json())... (exemplos adicionáveis mediante pedido)
-
-====================================================================
-DICAS DE EDIÇÃO
-====================================================================
-• Para cada tema, acrescente/edite 50 objetos no array correspondente na constante QUESTIONS.
-• Em "mc":
-   - options: array de strings
-   - answer: índice numérico da alternativa correta (0, 1, 2, 3...)
-   - explanation: (opcional) texto curto exibido após a resposta
-• Em "reveal":
-   - answer: texto mostrado quando clicar em "Mostrar resposta"
-• Performance: 350 questões é tranquilo em um único arquivo (tipicamente < 300 KB). 
-• A ordem aleatória usa um shuffle estável. O limite por sessão pode ser configurado no seletor "Quantidade".
-
-====================================================================
-QUERO MODO "REVISAR SOMENTE NÃO RESPONDIDAS"
-====================================================================
-• Já existe "Pular" para adiar a pergunta na sessão.
-• Se quiser um modo específico futuramente ("não respondidas"), dá pra implementar uma lista separada (posso adicionar).
-
-====================================================================
-SUPORTE
-====================================================================
-• Se você me enviar os 7 lotes de 50 questões (com indicação de tipo e gabarito), eu importo tudo e te devolvo o arquivo pronto.
--->
 
 <html lang="pt-BR">
 <head>
@@ -128,13 +68,13 @@ SUPORTE
 }
 
 .footer-logo {
-  width: 80px;              /* Mostra menor que o tamanho real */
+  width: 80px;
   height: 80px;
   border-radius: 50%;
-  object-fit: cover;        /* Mantém proporção sem distorcer */
+  object-fit: cover;
   border: 2px solid #2a3042;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-  image-rendering: auto;    /* Suaviza a interpolação */
+  image-rendering: auto;    
 }
 
     .divider{height:1px; background:#22283a; margin:16px 0}
@@ -252,11 +192,9 @@ SUPORTE
   </div>
 
   <script>
-  // ==========================
-  //  DADOS — Edite aqui
-  //  Tipos: 'mc' (múltipla escolha) e 'reveal' (mostrar resposta + marcar acerto/erro)
-  //  Preencha 7 temas. Exemplos abaixo — troque pelas suas perguntas.
-  // ==========================
+
+
+
   const QUESTIONS = {
     "Ortopedia": [
       { type:'reveal', question:'Descreva as três fases do processo de cicatrização óssea conforme o Fossum, destacando os eventos celulares principais em cada uma delas.', answer:'Inflamatória: formação de hematoma e migração de neutrófilos/macrófagos; Reparativa: proliferação de fibroblastos e diferenciação de osteoblastos formando calo; Remodelamento: substituição do calo por osso lamelar maduro.' },
@@ -474,7 +412,6 @@ SUPORTE
 ],
 
     "Cirurgia Abdominal": [
-  // Parte A — Dissertativas Curtas (25)
   { type:'reveal', question:'Descreva as camadas anatômicas da parede abdominal e o plano crítico de sustentação.', answer:'Pele → subcutâneo → linha alba (fáscia) → peritônio. A linha alba é o principal plano de resistência e deve ser fechada com cuidado.' },
   { type:'reveal', question:'Explique a “exploração sistemática da cavidade abdominal”.', answer:'Sequência: fígado/vesícula → estômago → intestinos → bexiga → útero/próstata → rins e linfonodos, para não perder lesões.' },
   { type:'reveal', question:'Indicações para laparotomia exploratória em pequenos animais.', answer:'Corpo estranho GI, efusão abdominal sem diagnóstico, massas, trauma, ruptura de órgãos, peritonite e hemorragia intra-abdominal.' },
@@ -501,7 +438,7 @@ SUPORTE
   { type:'reveal', question:'Shunt portossistêmico e correção cirúrgica.', answer:'Desvio do fluxo portal para sistêmico; corrigir com ameroide constrictor ou celofane (oclusão gradual).' },
   { type:'reveal', question:'Sinal clássico de ruptura de bexiga e diagnóstico definitivo.', answer:'Distensão abdominal e azotemia pós-renal; cistografia contrastada com extravasamento de contraste.' },
 
-  // Parte B — Objetivas (25)
+  
   { type:'mc', question:'A camada de maior resistência da parede abdominal é:', options:['Músculo reto abdominal','Subcutâneo','Linha alba (fáscia)','Peritônio'], answer:2, explanation:'A fáscia (linha alba) é o principal ponto de ancoragem da sutura.' },
   { type:'mc', question:'O fio ideal para fechamento da linha alba é:', options:['Seda','Catgut','Polidioxanona (PDS)','Nylon'], answer:2, explanation:'Monofilamento, absorvível, alta força tensil prolongada.' },
   { type:'mc', question:'Indicação clássica de gastrotomia:', options:['Hematêmese','Corpo estranho gástrico','Dilatação gástrica sem ruptura','Vômito funcional'], answer:1, explanation:'Principal aplicação é a retirada de corpo estranho.' },
@@ -530,7 +467,6 @@ SUPORTE
 ],
 
     "Neurocirurgia": [
-  // 🧩 Parte A — Dissertativas Curtas (25)
   { type:'reveal', question:'Explique o objetivo principal da neurocirurgia veterinária conforme o Fossum.', answer:'Restaurar/preservar a função neurológica por descompressão, estabilização e remoção de lesões que comprimem ou destroem estruturas neurais.' },
   { type:'reveal', question:'Descreva a organização anatômica da medula espinhal em relação às vértebras.', answer:'A medula é mais curta que a coluna: cone medular em cães ~L6–L7 e em gatos ~L7–S1; raízes caudais formam a cauda equina (referência cirúrgica).' },
   { type:'reveal', question:'Explique “compressão medular ventral vs. dorsal” e como isso define o acesso cirúrgico.', answer:'Compressões ventrais (ex.: Hansen I) → ventral slot/hemilaminectomia; compressões dorsais (ex.: hipertrofia ligamentar) → laminectomia dorsal.' },
@@ -557,7 +493,7 @@ SUPORTE
   { type:'reveal', question:'O que é meningioma espinhal e abordagem.', answer:'Tumor extramedular compressivo, geralmente dorsal; laminectomia e ressecção completa quando possível.' },
   { type:'reveal', question:'Objetivo da mielografia e riscos.', answer:'Identificar compressões com contraste intratecal; riscos: convulsões, piora neurológica e reação ao contraste.' },
 
-  // 🎯 Parte B — Objetivas com comentário (25)
+
   { type:'mc', question:'O tipo de hérnia discal aguda e explosiva, comum em Dachshunds, é:', options:['Hansen tipo II','Hansen tipo I','Extrusão traumática','Protrusão crônica'], answer:1, explanation:'Tipo I é típica de raças condrodistróficas, com extrusão súbita do núcleo calcificado.' },
   { type:'mc', question:'Compressão ventrolateral toracolombar: acesso ideal:', options:['Laminectomia dorsal','Hemilaminectomia','Ventral slot','Corpectomia'], answer:1, explanation:'Hemilaminectomia permite descompressão lateral preservando estabilidade.' },
   { type:'mc', question:'A ausência de dor profunda indica:', options:['Prognóstico favorável','Necessidade de analgesia','Lesão grave com prognóstico reservado','Indicação conservadora'], answer:2, explanation:'Ausência de nocicepção profunda é mau sinal prognóstico.' },
@@ -586,7 +522,6 @@ SUPORTE
 ],
 
     "Princípios Gerais e Reparo de Feridas": [
-  // 🧠 Parte A — Dissertativas Curtas (25)
   { type:'reveal', question:'Descreva os quatro princípios básicos da cirurgia asséptica conforme o Fossum.', answer:'1) Preparação adequada do cirurgião e do paciente; 2) Materiais e instrumentos estéreis; 3) Técnica asséptica contínua durante todo o ato; 4) Prevenção de contaminação cruzada.' },
   { type:'reveal', question:'Explique a diferença entre assepsia e antissepsia.', answer:'Assepsia: prevenir entrada de microrganismos (ambiente/instrumentos estéreis). Antissepsia: destruir microrganismos em tecidos vivos (clorexidina, PVPI).' },
   { type:'reveal', question:'Quais são os principais métodos de esterilização segundo o Fossum?', answer:'Autoclave (vapor sob pressão), calor seco, óxido de etileno, plasma de peróxido de hidrogênio e radiação — escolhidos conforme resistência térmica do material.' },
@@ -613,7 +548,6 @@ SUPORTE
   { type:'reveal', question:'Defina fluidoterapia de manutenção e reposição.', answer:'Manutenção: perdas fisiológicas; Reposição: perdas anormais. Base: ~40–60 mL/kg/dia em cães (ajustar ao paciente).' },
   { type:'reveal', question:'Objetivo da preparação de campo e posicionamento cirúrgico.', answer:'Garantir acesso adequado, reduzir contaminação e tensão tecidual; posicionar respeitando fisiologia e evitando compressões.' },
 
-  // 🎯 Parte B — Objetivas com Comentário (25)
   { type:'mc', question:'A diferença entre assepsia e antissepsia é:', options:['Assepsia elimina microrganismos vivos','Antissepsia previne contaminação','Assepsia previne contaminação; antissepsia destrói microrganismos','Ambas são sinônimos'], answer:2, explanation:'Assepsia é preventiva; antissepsia é destrutiva em tecido vivo.' },
   { type:'mc', question:'O método mais eficaz de esterilização para instrumentos metálicos é:', options:['Calor seco','Autoclave a vapor sob pressão','Radiação gama','Clorexidina 2%'], answer:1, explanation:'Autoclave ~121°C por 15–30 min elimina todos os microrganismos.' },
   { type:'mc', question:'O tempo ideal entre tricotomia e incisão é:', options:['12 h antes','4 h antes','Imediatamente antes','24 h antes'], answer:2, explanation:'Fazer imediatamente antes reduz foliculite e contaminação.' },
@@ -642,9 +576,11 @@ SUPORTE
 ]
   };
 
-  // ==========================
-  //  Utilidades
-  // ==========================
+
+
+
+
+
   const $ = (sel) => document.querySelector(sel);
   const $$ = (sel) => Array.from(document.querySelectorAll(sel));
   const shuffle = (arr) => arr.map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(v=>v[1]);
@@ -655,18 +591,16 @@ SUPORTE
 
   const idFor = (theme, idx) => `${theme}#${idx}`;
 
-  // ==========================
-  //  Estado
-  // ==========================
-  let MODE = 'tema'; // 'tema' | 'misturado' | 'erradas'
+  
+  let MODE = 'tema';
   let CURRENT_THEME = null;
-  let POOL = []; // [{theme, index}]
-  let CUR = -1; // ponteiro no POOL
+  let POOL = [];
+  let CUR = -1;
   let SCORE = { certo:0, errado:0, pulos:0 };
 
-  // ==========================
-  //  Inicialização
-  // ==========================
+  
+
+  
   function initThemeSelect(){
     const themeSel = $('#theme');
     themeSel.innerHTML = Object.keys(QUESTIONS).map(t=>`<option>${t}</option>`).join('');
@@ -752,7 +686,7 @@ SUPORTE
     $('#finishBtn').classList.add('hidden');
 
     if(CUR>=POOL.length){
-      // fim
+      
       $('#qTitle').textContent = '✅ Sessão concluída!';
       $('#qTheme').textContent = '';
       $('#mcBlock').classList.add('hidden');
@@ -783,7 +717,7 @@ SUPORTE
     }).join('');
     $('#options').innerHTML = opts;
 
-    // listeners
+    
     $('#submitBtn').onclick = () => {
       const sel = document.querySelector('input[name="opt"]:checked');
       if(!sel){
@@ -859,9 +793,7 @@ SUPORTE
     $('#finishBtn').onclick = () => { $('#quizArea').classList.add('hidden'); };
   }
 
-  // ==========================
-  //  Import/Export de erradas
-  // ==========================
+
   $('#exportWrong').onclick = () => {
     const data = JSON.stringify(loadWrong());
     const blob = new Blob([data], {type:'application/json'});
@@ -893,9 +825,8 @@ SUPORTE
     if(confirm('Apagar todas as erradas salvas neste aparelho?')){ saveWrong([]); updateStatus(); updateModeUI(); }
   };
 
-  // ==========================
-  //  Listeners globais
-  // ==========================
+  
+
   $('#startBtn').onclick = startSession;
   $('#theme').onchange = (e)=>{ CURRENT_THEME = e.target.value };
   $('#order').onchange = ()=>{};
@@ -904,13 +835,13 @@ SUPORTE
     MODE = b.dataset.mode; updateModeUI();
   });
 
-  // Boot
+  
   initThemeSelect();
   CURRENT_THEME = $('#theme').value;
   updateModeUI();
   updateStatus();
 
-  // Dica: para começar direto, chame startSession();
+  
   </script>
   <script>
   if ('serviceWorker' in navigator) {
